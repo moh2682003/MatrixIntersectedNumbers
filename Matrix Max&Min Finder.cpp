@@ -34,37 +34,34 @@ void PrintMatrixArray(int arr[3][3], short Rows, short Cols)
 	cout << "***********************************" << endl;
 }
 
-bool CheckNumberInMatrix(int Matrix[3][3], short Rows, short Cols, int Number)
+int CheckBiggestNumberInRandomMatrix(int Matrix[3][3], short Rows, short Cols)
 {
+	int BiggestNumber = Matrix[0][0];
 	for (short i = 0; i < Rows; i++)
 	{
 		for (short j = 0; j < Cols; j++)
 		{
-			if (Matrix[i][j] == Number)
-				return true;
+			if (Matrix[i][j] > BiggestNumber)
+				BiggestNumber = Matrix[i][j];
 		}
 	}
-	return false;
+	return BiggestNumber; 
 }
 
-void PrintIntersectedNumberInMatrix(int Matrix1[3][3], int Matrix2[3][3], short Rows, short Cols)
+int CheckSmallNumberInRandomMatrix(int Matrix[3][3], short Rows, short Cols)
 {
-	bool Found = false;
+	int SmallNumber = Matrix[0][0]; 
 	for (short i = 0; i < Rows; i++)
 	{
 		for (short j = 0; j < Cols; j++)
 		{
-			if (CheckNumberInMatrix(Matrix2, Rows, Cols, Matrix1[i][j]))
-			{
-				cout << Matrix1[i][j] << "   ";
-				Found = true;
-			}
-
+			if (SmallNumber > Matrix[i][j])
+				SmallNumber = Matrix[i][j];
 		}
 	}
-	if (Found == false)
-		cout << "No Intersected Number\n";
+	return SmallNumber;
 }
+
 
 
 
@@ -75,22 +72,17 @@ int main()
 {
 	srand((unsigned)time(NULL));
 
-	int Matrix1[3][3],Matrix2[3][3];
+	int Matrix1[3][3];
 	
 	FillRandomMatrixWithRandomNumber(Matrix1, 3, 3);
 	cout << "Matrix 1\n";
 	PrintMatrixArray(Matrix1, 3, 3);
 
+	cout << "\nThe Biggest Number In Random Matrix: " << CheckBiggestNumberInRandomMatrix(Matrix1, 3, 3) << endl ;
 
-	FillRandomMatrixWithRandomNumber(Matrix2, 3, 3);
-	cout << "Matrix 2\n";
-	PrintMatrixArray(Matrix2, 3, 3);
+
+	cout << "\nThe Small Number In Random Matrix: " << CheckSmallNumberInRandomMatrix(Matrix1, 3, 3) << endl;
 	
-	cout << "\nIntersected Number are : ";
-	PrintIntersectedNumberInMatrix(Matrix1, Matrix2, 3, 3);
-	cout << endl;
-
+	
 	system("pause");
-	
-
 }
